@@ -1,9 +1,12 @@
 package hiber.model;
 
+import org.springframework.context.annotation.Scope;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="cars")
+@Scope("prototype")
 public class Car {
 
     @Id
@@ -15,6 +18,10 @@ public class Car {
 
     @Column(name = "series")
     private int series;
+
+    @OneToOne(mappedBy = "car")
+    //@JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Car(){
 
@@ -28,6 +35,10 @@ public class Car {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getModel() {
@@ -44,5 +55,18 @@ public class Car {
 
     public void setSeries(int series) {
         this.series = series;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString(){
+        return "Car model \"" + this.model + "\" series " + this.series;
     }
 }
