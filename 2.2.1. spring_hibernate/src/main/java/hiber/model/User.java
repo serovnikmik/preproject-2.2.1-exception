@@ -23,7 +23,14 @@ public class User {
    private Car car;
 
    public User() {}
-   
+
+   public User(Car car){
+//      this.firstName = null;
+//      this.lastName = null;
+//      this.email = null;
+      this.car = car;
+   }
+
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -76,5 +83,15 @@ public class User {
 
    public void setCar(Car car) {
       this.car = car;
+   }
+
+   public String userInfo(){
+      return "User info:\n" +
+              "id: " + this.id + "\n" +
+              "name: " + this.firstName + "\n" +
+              "last name: " + this.lastName + "\n" +
+              "email: " + this.email + "\n" +
+              "name: " + this.firstName + "\n" +
+              "car: " + this.car;
    }
 }

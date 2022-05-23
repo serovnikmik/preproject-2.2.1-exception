@@ -60,7 +60,9 @@ public class MainApp {
 
       String carModel = "Car Model 1";
       int carSeries = 1;
-      System.out.println(userService.getUserByCarInfo(carModel, carSeries));
+      System.out.println(
+              userService.getUserByCarInfo(carModel, carSeries)
+                      .userInfo());
 
       context.close();
    }

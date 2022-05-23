@@ -67,6 +67,8 @@ public class Car {
 
     @Override
     public String toString(){
-        return "Car model \"" + this.model + "\" series " + this.series;
+        return "Car" + "(id=" + this.id+") " +
+                "model \"" + this.model +
+                "\" series " + this.series;
     }
 }
