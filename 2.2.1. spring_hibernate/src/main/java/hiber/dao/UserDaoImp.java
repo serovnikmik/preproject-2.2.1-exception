@@ -35,27 +35,15 @@ public class UserDaoImp implements UserDao {
    @Override
    @Transactional
    public User getUserByCarInfo(String carModel, int carSeries){
-      User neededUser;
-      Car neededCar = new Car();
-      Session session;
-      try{
-         session = sessionFactory.getCurrentSession();
-      } catch (HibernateException e){
-         session = sessionFactory.openSession();
-      }
+      Session session = sessionFactory.getCurrentSession();
 
-      String hqlToFindCar = "From Car where model = :paramModel AND series = :paramSeries";
-      Query queryToFindCar = session.createQuery(hqlToFindCar);
-      queryToFindCar.setParameter("paramModel", carModel);
-      queryToFindCar.setParameter("paramSeries", carSeries);
-      List<Car> carList = queryToFindCar.list();
-      neededCar = carList.get(0);
-
-      String hqlToFindUser = "From User as us where us.car.id = :paramCarId";
-      Query queryToFindUser = session.createQuery(hqlToFindUser);
-      queryToFindUser.setParameter("paramCarId", neededCar.getId());
-      List<User> userList = queryToFindUser.list();
-      neededUser = userList.get(0);
+      String hqlToFindUser = "From User as u where u.car.model = :paramCarModel " +
+              "and u.car.series = :paramCarSeries";
+      TypedQuery<User> queryToFindUser = session.createQuery(hqlToFindUser);
+      queryToFindUser.setParameter("paramCarModel", carModel);
+      queryToFindUser.setParameter("paramCarSeries", carSeries);
+      List<User> userList = queryToFindUser.getResultList();
+      User neededUser = userList.get(0);
 
       return neededUser;
    }
