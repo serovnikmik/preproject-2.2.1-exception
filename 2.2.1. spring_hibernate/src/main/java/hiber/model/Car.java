@@ -30,7 +30,6 @@ public class Car {
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
-        System.out.println("car " + model + " series " + series + " is created!");
     }
 
     public Long getId() {

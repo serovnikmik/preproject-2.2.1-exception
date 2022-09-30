@@ -25,9 +25,6 @@ public class User {
    public User() {}
 
    public User(Car car){
-//      this.firstName = null;
-//      this.lastName = null;
-//      this.email = null;
       this.car = car;
    }
 

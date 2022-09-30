@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -19,18 +20,20 @@ public class UserDaoImp implements UserDao {
    private SessionFactory sessionFactory;
 
    @Override
+   @Transactional
    public void add(User user) {
       sessionFactory.getCurrentSession().save(user);
    }
 
    @Override
-   @SuppressWarnings("unchecked")
+   @Transactional
    public List<User> listUsers() {
       TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
       return query.getResultList();
    }
 
    @Override
+   @Transactional
    public User getUserByCarInfo(String carModel, int carSeries){
       User neededUser;
       Car neededCar = new Car();
@@ -52,11 +55,9 @@ public class UserDaoImp implements UserDao {
       Query queryToFindUser = session.createQuery(hqlToFindUser);
       queryToFindUser.setParameter("paramCarId", neededCar.getId());
       List<User> userList = queryToFindUser.list();
-      System.out.println(userList.size());
       neededUser = userList.get(0);
 
       return neededUser;
-//      return new User(neededCar);
    }
 
 }
