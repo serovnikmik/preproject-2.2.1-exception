@@ -20,7 +20,6 @@ public class Car {
     private int series;
 
     @OneToOne(mappedBy = "car")
-    //@JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public Car(){

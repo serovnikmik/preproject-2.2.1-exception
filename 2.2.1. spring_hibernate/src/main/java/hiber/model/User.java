@@ -82,7 +82,8 @@ public class User {
       this.car = car;
    }
 
-   public String userInfo(){
+   @Override
+   public String toString(){
       return "User info:\n" +
               "id: " + this.id + "\n" +
               "name: " + this.firstName + "\n" +

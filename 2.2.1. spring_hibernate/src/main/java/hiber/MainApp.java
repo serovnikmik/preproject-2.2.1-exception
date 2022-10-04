@@ -7,14 +7,15 @@ import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class MainApp {
-   public static void main(String[] args) throws SQLException {
+   public static void main(String[] args) {
       AnnotationConfigApplicationContext context = 
             new AnnotationConfigApplicationContext(AppConfig.class);
 
+      System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+      System.out.println("Adding cars  and getting them back\n");
 
       Car car1 = new Car("Car Model 1", 1);
       Car car2 = new Car("Car Model 2", 2);
@@ -29,14 +30,14 @@ public class MainApp {
       carService.add(car4);
 
       List<Car> cars = carService.listCars();
+      System.out.println();
       for (Car car : cars){
-         System.out.println("Id = " + car.getId());
-         System.out.println("Model = " + car.getModel());
-         System.out.println("Series = " + car.getSeries());
+         System.out.println(car);
          System.out.println();
       }
 
       System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+      System.out.println("Adding users and getting them back\n");
 
       UserService userService = context.getBean(UserService.class);
 
@@ -45,22 +46,24 @@ public class MainApp {
       userService.add(new User("User3", "Lastname3", "user3@mail.ru", car3));
       userService.add(new User("User4", "Lastname4", "user4@mail.ru", car4));
 
-
       List<User> users = userService.listUsers();
+      System.out.println();
       for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-         System.out.println("Car = " + user.getCar());
+         System.out.println(user);
          System.out.println();
       }
 
+      System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+      System.out.println("Finding user by car info\n");
+
       String carModel = "Car Model 1";
       int carSeries = 1;
-      System.out.println(
-              userService.getUserByCarInfo(carModel, carSeries)
-                      .userInfo());
+
+      System.out.println();
+      System.out.println("The user that owns car with model: " + carModel +
+              " and series: " + carSeries + " is user:\n" +
+              userService.getUserByCarInfo(carModel, carSeries));
+      System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 
       context.close();
    }
